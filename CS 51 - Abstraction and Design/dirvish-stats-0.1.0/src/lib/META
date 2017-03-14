@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: a17f098962c342f6c1a0207a334831f3)
+version = "0.1.0"
+description = "Gather statistics about dirvish vaults."
+requires = "unix calendar"
+archive(byte) = "dirvish-stats.cma"
+archive(byte, plugin) = "dirvish-stats.cma"
+archive(native) = "dirvish-stats.cmxa"
+archive(native, plugin) = "dirvish-stats.cmxs"
+exists_if = "dirvish-stats.cma"
+# OASIS_STOP
+

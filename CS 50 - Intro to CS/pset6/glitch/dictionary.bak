@@ -1,0 +1,143 @@
+/****************************************************************************
+ * dictionary.c
+ *
+ * Nate Hardison <nate@cs.harvard.edu>
+ *
+ * Implements a dictionary's functionality, using a hash table for the 
+ * dictionary.
+ ***************************************************************************/
+
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include "dictionary.h"
+
+/**
+ * Each node will store the word and a pointer to the next node with the
+ * same hash value (or NULL, if no such node follows).
+ *
+ * To be memory-efficient, we don't allocate a fixed-length char array or
+ * even store a pointer to the chars as a separate field. Instead, we use
+ * a zero-length char array and allocate nodes of just the right size.
+ */
+
+
+// global dictionary hash table
+node* hashtable[NUM_BUCKETS];
+
+// global dictionary's size: make sure to initialize here!
+unsigned int hashtable_size = 0;
+
+
+/**
+ * Returns a hash value for a word
+ *
+ */
+
+static int hash_word(const char* w)
+{
+    size_t InitialFNV = 2166136261U;
+    size_t FNVMultiple = 16777619;
+    size_t hash = InitialFNV;
+    while (*w != '\0')
+    {
+        hash ^= tolower(*w);
+        hash *= FNVMultiple;
+        w++;
+    }
+    return hash % NUM_BUCKETS;
+}
+
+
+/**
+ * Returns true if word is in dictionary else false.
+ */
+ 
+bool check(const char* word)
+{   
+    // find the bucket in the table where the word should be
+    register const char *w = word;
+    
+    // look at all entries in the bucket to see if the word's there
+    for (register node *entry = hashtable[hash_word(w)]; entry != NULL; entry = entry->next)
+    {
+        register const char *e = entry->word;
+        if (strcasecmp(e, w) == 0) return true;
+    }
+    return false;
+}
+
+/**
+ * Loads dict into memory.  Returns true if successful else false.
+ */
+bool load(const char* dictionary)
+{
+    FILE* dictionary_file = fopen(dictionary, "r");
+    if (dictionary_file == NULL) return false;
+    
+    // loop through file, entering each word in our hash table
+    char buffer[LENGTH];
+    while (fscanf(dictionary_file, "%45s", buffer) == 1)
+    {
+        // build a node to store the word we're about to read
+        // if out of memory, then punt (clean up first though!)
+        node* entry = malloc(sizeof(node)+LENGTH);
+        if (entry == NULL)
+        {
+            unload();
+            fclose(dictionary_file);
+            return false;
+        }  
+        register unsigned int hash = hash_word(entry->word);
+
+        // prepend the entry to the bucket
+        entry->next = hashtable[hash];
+        hashtable[hash] = entry;
+        
+        hashtable_size++;
+    }
+
+    // fail if we encountered errors in reading
+    if (ferror(dictionary_file))
+    {
+        unload();
+        fclose(dictionary_file);
+        return false;
+    }
+    
+    fclose(dictionary_file);
+    return true;
+}
+
+/**
+ * Returns number of words in dictionary if loaded else 0 if not yet loaded.
+ */
+unsigned int size(void)
+{
+    return hashtable_size;
+}
+
+/*
+ * Unloads dictionary from memory.  Returns true if successful else false.
+ */
+
+bool unload(void)
+{
+    for (int i = 0; i < NUM_BUCKETS; i++)
+    {
+        register node *bucket = hashtable[i];
+        while (bucket != NULL)
+        {
+            register node* next = bucket->next;
+            free(bucket);
+            bucket = next;
+        }         
+    }
+    return true;
+}

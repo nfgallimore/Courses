@@ -1,0 +1,48 @@
+1. 
+(a) false
+(b) 13
+(c) 7
+(d) Java, Java
+
+2.
+	public static void licensePlates(int n)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				System.out.print((int)Math.rand() * 10 + 1);
+			}
+			for (int j = 0; j < 3; j++)
+			{
+				System.out.print( (char) ( (int)Math.rand() * 26 + 'A') );
+			}
+		}
+	}
+
+3.
+	A. 0
+	B. 0 1 1
+	C. 0 3 5 6
+	D. 0 9 17 24 30
+
+4.
+	while ((i < 10) && (j*j != 25))
+	{ 
+		i++; 
+		++j;
+		System.out.println( i * j );
+	}
+
+5.
+
+    public static boolean isJavaIdentifierStart (String s)
+    {
+        char c = (char)s.charAt(0);
+        if (ch >= 'A' && ch <= 'Z'
+             || ch >= 'a' && ch <= 'z'
+             || ch == '$' || ch == '_' )
+            return true;
+        else return false;
+    }
+ 

@@ -1,0 +1,29 @@
+1. if (age >= 22 && age <= 30 && !isASmoker && height < 72 && weight < 160 && isGoodLooking && isAbleToRelocate)
+
+2. 
+      p       q       r       (p && q) || (!r)    !(p && (q || !r))
+ _____________________________________________________________________
+
+    FALSE   FALSE   FALSE       TRUE                    TRUE
+    FALSE   FALSE   TRUE        FALSE                   TRUE  
+    FALSE   TRUE    FALSE       TRUE                    TRUE  
+    FALSE   TRUE    TRUE        FALSE                   TRUE  
+    TRUE    TRUE    TRUE        TRUE                    FALSE 
+    TRUE    FALSE   FALSE       TRUE                    FALSE 
+    TRUE    TRUE    FALSE       TRUE                    FALSE 
+    TRUE    FALSE   TRUE        FALSE                   TRUE
+    
+3.  public static int myMin(int a, int b, int c)
+    {
+        return Math.min(a, Math.min(b,c));
+    }
+
+4.
+
+Many a student in the computer of fred
+Many a computer in the department of major
+Many a department in the honor of Fred
+Many a baz in the bar of foo
+Many a major in the department of computer
+
+

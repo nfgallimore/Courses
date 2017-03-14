@@ -1,0 +1,40 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts,amssymb,fullpage,enumerate,verbatim}
+
+\input{macros}
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------$
+\begin{document}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+\hline
+{\large \bfseries CS 127/CSCI E-127: Introduction to Cryptography} \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+\vspace{1cm}
+
+\begin{definition}
+A Block Cipher is a family:
+$$\FFam = \left\lbrace f_k:\zo^l\rightarrow\zo^l\right\rbrace_{k\in\zo^n}$$
+\end{definition}
+Such that:
+\begin{enumerate}
+\item $f_k$ is a permutation.
+\item Given $k$, $f_k$, and $f'_k \FFam$ it is easy to compute.
+\item For $k\getsr{\zo^n}$, $f_k$ is indistinguishable from a truly random permutation.
+\end{enumerate}
+
+\begin{definition}
+AES is a variant of a "substitution permutation network".
+\end{definition}
+\begin{enumerate}
+\item $l = 128$
+\item $n = 128, 192, 256$
+\end{enumerate}
+\end{document}

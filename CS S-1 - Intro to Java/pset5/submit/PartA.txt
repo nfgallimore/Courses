@@ -1,0 +1,67 @@
+1.
+    (a)     boolean [] quiz = new boolean[20];
+    (b)     double [] family = new double[12];
+    (c)     double [][] rainfall = new double[12][5];
+    (d) 
+    	Candidate [] ballet = new Candidate[8];    
+		
+		class Candidate
+		{
+			private int votes;
+			private String name;
+		}
+
+2.
+
+class Foobar {
+	public static void main (String [] args)
+	{
+		double [] cscis1 = new double [20];
+		for (int i = 0; i < cscis1.length; i++) 
+			cscis1 [i] = Math.random() * 100;
+	}
+}
+
+3.
+	(a) 
+
+	for (int i = 0; i < SIZE; i++)
+		sample[i] = 5;
+
+	(b)
+
+	int tmp = sample[0];
+	sample[0] = sample[SIZE - 1];
+	sample[SIZE - 1] = tmp;
+
+	(c)
+
+	for (int i = 0; i < SIZE; i++)
+		if(sample[i] < 0)
+			sample[i] / -1;
+
+	(d)
+	for (int i = 0; i < SIZE; i++)
+		if (i % 2 != 0)
+			System.out.print(sample[i] + ", ");
+
+4.
+
+int sum = 0;
+int count = 0;
+
+for (int i = 0; i < ROWS; i++)
+{
+	for (int j = 0; j < COLS; j++)
+	{
+		sum += foobar[i][j].length();
+		count++;
+	}
+}
+double avg = sum / count;
+
+5.
+
+char[][] foobar = { { 'O', ' ', ' ' },
+					{ ' ', 'X', ' ' },
+					{ 'X', 'O', 'X' } };

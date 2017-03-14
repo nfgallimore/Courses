@@ -1,0 +1,6 @@
+dist
+_build
+main.native
+setup.data
+setup.log
+src/dirvish-stats/conf.ml

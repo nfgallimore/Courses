@@ -1,0 +1,59 @@
+OASISFormat: 0.3
+Name:        dirvish-stats
+Version:     0.1.0
+Synopsis:    Gather statistics about dirvish vaults.
+Copyrights:  (C) 2013 Sylvain Le Gall
+Authors:     Sylvain Le Gall
+License:     GPL-3
+Plugins:     DevFiles (0.3), META (0.3), StdFiles (0.3)
+BuildTools:  ocamlbuild
+FilesAB:     src/dirvish-stats/conf.ml.ab
+Homepage:    http://forge.ocamlcore.org/projects/dirvish-stats/
+Description:
+  This program helps to compute some stats about dirvish vaults:
+  - list vaults.
+  - list images of a vault.
+  - size of an image.
+  - size of extra data between two images.
+  - date of last image of a vault.
+
+Library "dirvish-stats"
+  Path:         src/lib
+  Modules:      DirvishStats
+  InternalModules: DirvishStatsLexer,
+                   DirvishStatsParser,
+                   DirvishStatsInternal
+  BuildDepends: unix, calendar (>= 2.0)
+
+Executable "dirvish-stats"
+  Path:           src/dirvish-stats
+  BuildTools:     ocamlbuild
+  MainIs:         main.ml
+  CompiledObject: best
+  BuildDepends:   dirvish-stats, fileutils (>= 0.4.2)
+
+# TODO: reactivate when oUnit 2.0 will be out.
+#Executable test
+#  Path:         test
+#  Build$:       flag(tests)
+#  BuildTools:   ocamlbuild
+#  MainIs:       test.ml
+#  BuildDepends: dirvish-stats, oUnit (>= 2.0), fileutils (>= 0.4.2)
+
+Document "api-ref"
+  Title:                API reference for DirvishStats
+  Type:                 ocamlbuild (0.3)
+  InstallDir:           $htmldir/dirvish-stats
+  BuildTools+:          ocamldoc
+  XOCamlbuildPath:      src/lib
+  XOCamlbuildLibraries: dirvish-stats
+
+# TODO: reactivate when oUnit 2.0 will be out.
+#Test main
+#  Command: $test
+#  TestTools: test
+
+# TODO: update
+SourceRepository head
+  Type: git
+  Location: https://forge.ocamlcore.org/anonscm/git/dirvish-stats/dirvish-stats.git

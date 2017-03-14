@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsfonts,amssymb,fullpage,enumerate,verbatim}
+
+\newcommand{\psnum}{6}
+\newcommand{\assdate}{Oct. 18, 2013 \hspace{-5em}}
+\newcommand{\duedate}{Oct. 25, 2013}
+\def\inclsolns{0}
+
+\input{macros}
+
+\newcounter{problem}
+\newenvironment{problem}[1]{\stepcounter{problem}
+\paragraph{Problem \theproblem. #1}}{}
+
+\ifnum\inclsolns=1
+\newenvironment{solution}{\paragraph{Solution.}}{}
+\else
+\newenvironment{solution}{\begin{remove}}{\end{remove}}
+\fi
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------$
+\begin{document}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+\hline
+{\large \bfseries CS 127/CSCI E-127: Introduction to Cryptography} \\
+
+{\large \bfseries Problem Set \psnum}\\
+Assigned: \assdate
+\hspace{20em} Due: \duedate\ (5:00 PM)\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+\vspace{1cm}
+
+\noindent Justify all of your answers.  See the syllabus for
+collaboration and lateness policies. Submit solutions by email to {\tt
+mbun@seas} (and please put the string ``CS127PS\psnum'' somewhere in your subject line).
+
+
+
+
+
+\begin{problem}{(The Hybrid Technique)}
+In class, we saw a few methods for increasing the expansion function of
+a pseudorandom generator; here we give another.  Let $G :
+\zo^*\rightarrow \zo^*$ be a pseudorandom generator with expansion
+function $\ell(n)$, and let $t(n)$ be a function.  Consider the
+function
+$$G'(x)=G^{(t(|x|))}(x)=\underbrace{G(G(G(\cdots G(}_{t(|x|)}x)))).$$
+
+\begin{enumerate}[a)]
+\item Show that when $\ell(n) = 2n$ and $t(n) = \lfloor\log n\rfloor$, $G'$ is a
+pseudorandom generator. (Hint: use the hybrid technique.)
+\label{part:double}
+
+\item Does part~\ref{part:double} also hold for $t(n)=n$?  Identify
+necessary and sufficient conditions on the relationship between
+$\ell(n)$ and $t(n)$ for $G'$ to be a pseudorandom generator.
+
+\item What are the advantages and disadvantages of this method for length expansion
+as compared to the one given in class?
+\end{enumerate}
+\end{problem}
+
+
+
+
+\begin{problem}{(Separating Passive and Active Security)}
+In class, we saw that every encryption scheme that satisfies
+indistinguishability under chosen plaintext attack also satisfies
+multiple-message indistinguishability.  In this problem, you'll see
+that the converse is false.  Let $\{f_k : \zo^n\rightarrow
+\zo^n\}_{k\in \zo^n}$ be a family of pseudorandom functions (for
+security parameter $n$).  Consider a probabilistic encryption scheme
+over message space $\zo^n$ where
+$$E_k(m) =
+\cases{ (r,f_k(r)\oplus m, f_k(0^n)) &  if $m\neq f_k(0^n)$\cr
+(r,f_k(r)\oplus m, k) & if $m=f_k(0^n)$}$$ where $r\getsr \zo^n$ is
+chosen randomly for each encryption. Prove that this encryption
+scheme satisfies multiple-message indistinguishability, but is
+insecure against a chosen-plaintext attack.
+\end{problem}
+
+
+\begin{problem}{(Secure Identification)}
+Consider a setting where a user $U$ needs to log on to a server $S$, and
+the user and server share a secret password $k\getsr \zo^n$ that was
+selected when the user's account was first created.  To avoid having
+to remember $k$, the user holds it in a smartphone app which can
+also perform computations for the user.
+
+The traditional way for the user to identify herself to the server
+is by sending $k$ to the server, which can then verify that it
+received the correct key. However, an adversary listening in on the
+communication would learn $k$ and could later impersonate the user.
+
+\begin{enumerate}[a)]
+\item Using pseudorandom functions, design a protocol between the user $U$ and server $S$ for identification
+that does not have this difficulty.  That is, even after watching
+the user identify herself many times, a PPT adversary $\cA$
+should not be able to successfully impersonate the user (except with
+negligible probability).
+
+\item Precisely define and prove the security property that your protocol achieves (assuming the security of the pseudorandom function family).
+\end{enumerate}
+\end{problem}
+
+
+\end{document}

@@ -1,0 +1,275 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsfonts,amssymb,fullpage,enumerate,verbatim}
+
+\newcommand{\psnum}{4}
+\newcommand{\assdate}{Oct. 4, 2013 \hspace{-5em}}
+\newcommand{\duedate}{Oct. 11, 2013}
+\def\inclsolns{0}
+
+\input{macros}
+
+\newcounter{problem}
+\newenvironment{problem}[1]{\stepcounter{problem}
+\paragraph{Problem \theproblem. #1}}{}
+
+\ifnum\inclsolns=1
+\newenvironment{solution}{\paragraph{Solution.}}{}
+\else
+\newenvironment{solution}{\begin{remove}}{\end{remove}}
+\fi
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------$
+\begin{document}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+\hline
+{\large \bfseries CS 127/CSCI E-127: Introduction to Cryptography} \\
+
+{\large \bfseries Problem Set \psnum}\\
+Assigned: \assdate
+\hspace{20em} Due: \duedate\ (5:00 PM)\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+\vspace{1cm}
+
+\noindent Justify all of your answers.  See the syllabus for
+collaboration and lateness policies. Submit solutions by email to {\tt
+mbun@seas} (and please put the string ``CS127PS\psnum'' somewhere in your subject line).
+
+\begin{comment}
+\begin{problem}{(Computational Number Theory: Part 1)}
+
+Do everything in this problem {\em by hand} and show your work.
+
+\begin{enumerate}[a)]
+\item Read about the extended GCD algorithm in Katz--Lindell (\S8.1).
+Apply it to the primes $53$ and $71$.
+
+\item What is the inverse of 53 modulo 71?
+
+\item Calculate the Chinese Remainder coefficients for $53\cdot
+71= 3763$, and find the element of $\Z_{3763}$ corresponding to
+$(10,6)\in \Z_{53}\times \Z_{71}$.
+
+\item Find all generators $g$ of $\Z_7^*$, and find
+$\log_g 3$ for each of them.
+
+\item Find the last (decimal) digit of $3763^{3763}$.
+\end{enumerate}
+
+\end{problem}
+\end{comment}
+
+\begin{problem}{(Computational Number Theory)}
+For the programming parts of this problem, describe in prose what the main ideas are and justify your major design choices. Attach the source code in an appendix to your submission, but \textbf{please keep your entire submission contained in one PDF file}.
+
+
+\begin{enumerate}[a)]
+\item Let $N=453504209$. Write a program to extract a square root of $105592908$ in $\Z_N^*$ using brute-force search. How long does it take to find the square root? (You might need to run your program multiple times and take an average.)
+%sq roots are \pm 7581643, \pm 20131005
+
+\item If the modulus is a prime $p$ congruent to 3 modulo 4 (i.e. $[p\bmod 4]=3$), extracting square roots modulo $p$ is very easy.  Specifically, prove that for every $y\in \QR_p$, $[\pm y^{(p+1)/4} \bmod p]$ are the square roots of $y$ in $\Z_p^*$. (Hint: use the fact that $\Z_p^*$ has a generator.)
+
+\item Suppose that you know the factorization of $N=p\cdot q$ ($453504209=20743\cdot21863$), and that $p$ and $q$ are both congruent to 3 modulo 4.  Implement a more efficient algorithm to find the square roots of 105592908 in $\Z_N^*$ given this factorization. How long does it take to find the square roots this time?
+(Hint: Use the Chinese Remainder Theorem.  This part may require substantially more programming than the first part.)
+
+\item Compare the time it takes to find square roots of random numbers in $\Z_N^*$ using the approaches in parts a) and c) as the bit-lengths of $p$ and $q$ increase (but only let the brute-force search run for as long as your patience allows). Draw a graph to illustrate your findings. Here is a table of primes congruent to $3$ modulo $4$ to help you:
+\begin{center}
+\begin{tabular}{c|c|c}
+bit-length & $p$ & $q$ \\
+\hline
+12 & 3011 & 3967 \\
+13 & 4547 & 6803 \\
+14 & 14683 & 13963 \\
+15 & 26479 & 18367 \\
+16 & 63311 & 49451 \\
+17 & 81611 & 77611 \\
+18 & 224831 & 256643 \\
+19 & 278651 & 475807 \\
+20 & 769487 & 915451 \\
+\end{tabular}
+\end{center}
+(Be careful to use at least 64-bit integers when working with the larger primes.)
+%For extra credit, you can repeat this experiment with trying to invert the map $x \mapsto [x^e \bmod N]$ for randomly chosen exponents $e \in \Z_{\phi(N)}^*$.
+
+%\item Run your square root extraction programs for modulus of different sizes and report the results.  To generate test instances, you can compute $x=a^2 \bmod N$ for some random $a$, then try to find the square root of $x$.  Here are some examples of primes that are congruent to $3 \bmod 4$ for you to find a modulus $N$: 1031, 1039,   2063,  2411, 6199, 20743, 21863, 6991, 63131, 75367.  )
+
+\end{enumerate}
+
+
+\end{problem}
+
+
+
+
+%\begin{problem}{(Computational Number Theory)}
+%Do everything in this problem {\em by hand} and show your work.
+%
+%\begin{enumerate}[a)]
+%\item Read about the extended GCD algorithm in Katz--Lindell (\S8.1).
+%Apply it to the primes $53$ and $71$.
+%
+%\item What is the inverse of 53 modulo 71?
+%
+%\item Calculate the Chinese Remainder coefficients for $53\cdot
+%71= 3763$, and find the element of $\Z_{3763}$ corresponding to
+%$(10,6)\in \Z_{53}\times \Z_{71}$.
+%
+%\item Find all square roots of 25 in $\Z_{3763}$.  (Hint: first
+%find all the square roots of 25 in $\Z_{53}$ and $\Z_{71}$.)
+%
+%\item Find all generators $g$ of $\Z_7^*$, and find
+%$\log_g 3$ for each of them.
+%
+%\item Find the last (decimal) digit of $3763^{3763}$.
+%\end{enumerate}
+%\end{problem}
+
+
+
+
+
+
+
+\begin{problem}{(More candidate one-way functions)}
+Which of the following functions are likely to be one-way functions?
+%(or collections of one-way functions, in the case of
+%Parts~\ref{part:squaring} and \ref{part:primeRSA})?
+Justify your
+answers by either giving a polynomial-time adversary that inverts
+the function with nonnegligible probability or by showing that the
+function's one-wayness follows from the one-wayness of one of the
+candidates given in class.
+
+\begin{enumerate}[a)]
+\item $f(x)=x^2$, where $x$ is an integer.
+
+\item $f(x,y)=x\cdot y-2^{\lceil \|x\|/2\rceil}\cdot y$, where $x$ and $y$ are integers such that
+$\|x\|=\|y\|$.
+
+%\item $f_N: \Z_N\to \Z_N$ defined by $f_N(x)=[x^2+2x \bmod N]$,
+%where $N=pq$ for random $n$-bit primes $p,q$. (Hint: Rabin's functions %$x \mapsto [x^2 \bmod N]$, addressed in the Lecture 9 notes, are a %candidate one-way function family.) \label{part:squaring}
+
+%\item $f_{p,x}: \Z_p^* \to \Z_p^*$ defined by $f_{p,x}(y)=y^x
+%\bmod p$, where $p$ is a random $n$-bit prime and $x\getsr
+%\{0,\ldots,p-2\}$. \label{part:primeRSA}
+
+
+\item $f(x_1,\ldots,x_n,S) = \left(x_1,\ldots,x_n, \left[\sum_{i\in S} x_i \bmod n^2\right]\right)$, where
+each $x_i\in \{1,\ldots,n^2\}$ and $S\subseteq \{1,\ldots,n\}$.
+
+\item Extra credit: $f(x_1,\ldots,x_n,S) = \left(x_1,\ldots,x_n, \sum_{i\in S} x_i\right)$, where
+each $x_i\in \{1,\ldots,n^2\}$ and $S\subseteq \{1,\ldots,n\}$.
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}{(Modifying one-way functions)}
+Suppose we are given a one-way function $f$. For which of the constructions is $g$ always a one-way function (for every choice of $f$)?  Prove your answers by either a reducibility argument
+or by constructing a one-way function $f$ (e.g. by modifying a candidate or arbitrary one-way function) for which $g$ fails to be one-way.
+
+\begin{enumerate}[a)]
+%\item $g(x) = f(\bar{x})$ where $\bar{x}$ is the bitwise complement of $x$
+%\item $g(x) = f(x) \oplus x$
+\item $g(x) = f(0^{|x|}x)$
+\item $g(x, y) = f(x \oplus y)$, where $|x|=|y|$
+% \item $g(x) = f(f(x))$
+\end{enumerate}
+\end{problem}
+
+\begin{comment}
+\begin{problem}{Generators of $\Z_N^*$}
+\begin{enumerate}[a)]
+\item Let $g$ be a generator for $\Z_N^*$. Show that $g'$ is also a generator if and only if $g' = g^a$ for some $a$ with $\gcd(a, \phi(N)) = 1$.
+\item Suppose we have a PPT algorithm $\cA$ that, given a prime $p$ and a number $y \in \Z_p^*$, outputs with probability at least $1/\poly(\|p\|)$ a number $x$ such that $g^x \equiv y \pmod p$ for some fixed generator $g$ for $\Z_p^*$. Use $\cA$ to construct a PPT that given $y \bmod p$ and an arbitrary generator $g'$, returns with non-negligible probability an $x$ such that $(g')^x \equiv y \pmod p$.
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}{(One-way functions vs. families)}
+Show that if a one-way function exists, then a one-way function family exists. (The converse is sketched in the Lecture 9 notes.)
+\end{problem}
+
+
+\begin{problem}{Attacking RSA!}
+\begin{enumerate}[a)]
+\item (Dangers of plain RSA)
+
+Suppose you see the encryption of messages $m$, $m+1$, and $m+2$
+under plain RSA with exponent 3.  Show how to recover $m$ in polynomial time.
+
+%Using plain RSA with exponent 3 and modulus $N$, we have the following
+%encryptions:
+%\begin{eqnarray*}
+%c_1 & = &   \Enc_{N,3}(m)  \equiv  m^3 \pmod{N} \\
+%c_2 & = & \Enc_{N,3}(m+1)  = (m+1)^3 \\
+% & \equiv & m^3 +3 m^2 +3 m +1 \pmod{N}\\
+%c_3 & = & \Enc_{N,3}(m+2) = (m+2)^3\\
+% & \equiv & m^3 + 6 m^2 + 12 m + 8 \pmod{N}\\
+%\end{eqnarray*}
+%
+%Note that $c_3 - 2 c_2 +c _1 = 6m +6$ . After seeing $c_1$, $c_2$ and
+%$c_3$, we can compute $x=c_3 - 2 c_2 +c _1$ in polynomial time. Because
+%$6$ is invertible in $\Z_N^*$, we can compute $\alpha=6^{-1}$ in polynomial time
+%using the Extended Euclidean algorithm, knowing only $N$. Hence, we can recover the message $m$
+%in polynomial time as $m=\alpha \cdot x -1$.
+%
+%Actually, only two messages are needed, as long as they satisfy a linear
+%relationship.
+
+
+
+\item (Low exponent attack)
+
+%%\textsf{
+Alice has a public-key $n_A$, which is the product of two $k_A$ bit primes.
+Bob has a public-key $n_B$, which is the product of two $k_B$ bit primes. Charlie decides to invite both Alice and Bob to his party but not Eve. The time
+and place of the party are in a message $X$. Charlie sends $Y_A=X^2
+\bmod n_A$ to Alice and $Y_B=X^2 \bmod n_B$ to Bob.
+%%} \\
+
+Show that if $n_A$ and $n_B$ are relatively prime and Eve has $Y_A$ and $Y_B$,
+then Eve can get recover the message $X$.
+\end{enumerate}
+
+\end{problem}
+
+
+
+\begin{problem}{(Primality Testing)}
+
+For the programming parts of this problem, describe in prose what the main ideas are and justify your major design choices. Attach the source code in an appendix to your submission, but \textbf{please keep your entire submission contained in one PDF file}.
+
+\begin{enumerate}[a)]
+\item In cryptographic applications, it is important for honest parties to generate large prime numbers efficiently.  What would be a na\"{i}ve way to find a prime number?  Is it efficient?
+\item In class, we have seen that $a^{\phi(n)} = 1\bmod n$ for any element $a\in \Z_n^*$.
+Specifically, we have $a^{p-1} = 1\bmod p$ for any integer $a$ and any prime $p$ (this is Fermat's Little Theorem). How can you use this property to design an algorithm that determines whether a number $n$ is composite (with certainty) or is a possible prime? Using randomization, can you make your algorithm efficient? Write a program that performs this primality test.
+
+\item Use your program to test the following numbers for primality. $2281, 2310 = 2\cdot3\cdot5\cdot7\cdot11, 2821 = 7 \cdot 13 \cdot 31, 2857, 2880 = 2^6 \cdot 3^2 \cdot 5$. (Unfortunately, even the inefficient version of the Fermat Primality Test described above actually fails on infinitely many composite numbers.)
+
+\item The following observation gets around the existence of ``Fermat pseudoprimes'' discussed above. If $x^2=1 \bmod n$, then we have $x^2-1=(x+1)(x-1)=0\bmod n$.  Note that if $n$ is a prime number, then $x$ must be $\pm 1$ (why?).  Enhance your primality test program by exploiting this property, so that it is less likely to let composite numbers go undetected (Hint: if you find that $a^{n-1} \equiv 1\bmod n$, investigate the numbers $a^\frac{n-1}{2}$, $a^\frac{n-1}{4}$, $a^\frac{n-1}{8}...$). Test your program on the examples from part c).
+
+\item Run the Miller-Rabin test you implemented in part d) on a large set of composite numbers. Estimate the probability that it declares a composite number to be a possible prime.
+
+\medskip
+The probability that a catastrophic solar megastorm corrupts your processor in the middle of executing a cryptographic application is about $1$ in $40$ million (don't quote us on this). About how many independent trials of the Miller-Rabin test would you have to run on a composite number to reduce its failure probability to this level?
+
+\item Use your program to estimate the prime counting function $\pi(x)$, defined as the number of primes less than or equal to $x$, for $1 \le x \le K$ for $K$ as large as your patience allows.
+
+The Prime Number Theorem states that $\lim_{x \to \infty} \pi(x) \ln x / x = 1$. Draw a graph to check whether this holds empirically. Give an estimate for the probability that a randomly chosen $n$-bit number is prime.
+
+\end{enumerate}
+
+\end{problem}
+\end{comment}
+
+
+
+\end{document}

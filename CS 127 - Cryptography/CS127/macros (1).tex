@@ -1,0 +1,162 @@
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{openprob}[theorem]{Open Problem}
+\newtheorem{remk}[theorem]{Remark}
+\newtheorem{apdxlemma}{Lemma}
+
+\newenvironment{remark}{\begin{remk}
+
+\begin{normalfont}}{\end{normalfont}
+\end{remk}}
+\newtheorem{sublemma}[theorem]{Sublemma}
+
+
+%%%%%%%%%%%%%%%%%%%% proof environments
+
+\def\FullBox{\hbox{\vrule width 8pt height 8pt depth 0pt}}
+
+\def\qed{\ifmmode\qquad\FullBox\else{\unskip\nobreak\hfil
+\penalty50\hskip1em\null\nobreak\hfil\FullBox
+\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+\def\qedsketch{\ifmmode\Box\else{\unskip\nobreak\hfil
+\penalty50\hskip1em\null\nobreak\hfil$\Box$
+\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+\newenvironment{proof}{\begin{trivlist} \item {\bf Proof:~~}}
+  {\qed\end{trivlist}}
+
+\newenvironment{proofsketch}{\begin{trivlist} \item {\bf
+Proof Sketch:~~}}
+  {\qedsketch\end{trivlist}}
+
+\newenvironment{proofof}[1]{\begin{trivlist} \item {\bf Proof
+#1:~~}}
+  {\qed\end{trivlist}}
+
+\newenvironment{claimproof}{\begin{quotation} \noindent
+{\bf Proof of claim:~~}}{\qedsketch\end{quotation}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%% text macros
+\newcommand{\etal}{{\it et~al.\ }}
+\newcommand{\ie} {{\it i.e.,\ }}
+\newcommand{\eg} {{\it e.g.,\ }}
+\newcommand{\cf}{{\it cf.,\ }}
+
+%%%%%%%%%%%%%%%%%%%%%%% general useful macros
+\newcommand{\eqdef}{\mathbin{\stackrel{\rm def}{=}}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\poly}{{\mathrm{poly}}}
+\newcommand{\loglog}{{\mathop{\mathrm{loglog}}}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\suchthat}{{\;\; : \;\;}}
+\newcommand{\pr}[1]{\Pr\left[#1\right]}
+\newcommand{\deffont}{\em}
+\newcommand{\getsr}{\mathbin{\stackrel{\mbox{\tiny R}}{\gets}}}
+\newcommand{\E}{\mathop{\mathrm E}\displaylimits}
+\newcommand{\Var}{\mathop{\mathrm Var}\displaylimits}
+\newcommand{\eps}{\varepsilon}
+
+
+%%%%%%%%%%%%%%%%%%% macros particular to this course
+% for author notes
+\newcommand{\authnote}[2]{{ \bf [#1's Note: #2]}}
+\newcommand{\Snote}[1]{{\authnote{Salil}{#1}}}
+\newcommand{\Mnote}[1]{{\authnote{Minh}{#1}}}
+
+\def\textprob#1{\textmd{\textsc{#1}}}
+\newcommand{\mathprob}[1]{\mbox{\textmd{\textsc{#1}}}}
+\newcommand{\SAT}{\mathprob{SAT}}
+\newcommand{\yes}{{\sc yes}}
+\newcommand{\no}{{\sc no}}
+\newcommand{\QuadRes}{\textprob{Quadratic Residuosity}}
+\newcommand{\QuadNonres}{\textprob{Quadratic Nonresiduosity}}
+
+\newcommand{\class}[1]{\mathbf{#1}}
+\newcommand{\SZK}{\class{SZK}}
+\newcommand{\BPP}{\class{BPP}}
+\newcommand{\NP}{\class{NP}}
+\newcommand{\IP}{\class{IP}}
+\renewcommand{\P}{\class{P}}
+\newcommand{\negl}{{\mathrm{neg}}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\Gen}{\mathsf{Gen}}
+\newcommand{\Scheme}{An encryption scheme $({\Gen},{ \Enc},{ \Dec})$}
+\newcommand{\Tag}{M}
+\newcommand{\Sign}{\mathrm{S}}
+\newcommand{\Ver}{V}
+\newcommand{\Commit}{\mathrm{Com}}
+\newcommand{\Com}{\mathrm{Com}}
+\newcommand{\tagsymbol}{t}
+
+
+\newcommand{\MsgSp}{\mathcal{M}}
+\newcommand{\KeySp}{\mathcal{K}}
+\newcommand{\CiphSp}{\mathcal{C}}
+\newcommand{\calA}{\mathcal{A}}
+
+\newcommand{\key}{k}
+\newcommand{\td}{t}
+
+\newcommand{\DIV}{\mathrm{DIV}}
+\newcommand{\EXP}{\mathrm{EXP}}
+\newcommand{\MODEXP}{\mathrm{MODEXP}}
+\newcommand{\GCD}{\mathrm{GCD}}
+
+
+\newcommand{\Dist}{\mathcal{D}}
+\newcommand{\LR}{\mathrm{LR}}
+\newcommand{\Oracle}{\mathrm{Oracle}}
+\newcommand{\Adv}{\mathrm{Adv}}
+\newcommand{\DES}{\mathrm{DES}}
+\newcommand{\AES}{\mathrm{AES}}
+\newcommand{\FFam}{\mathcal{F}}
+\newcommand{\HFam}{\mathcal{H}}
+\newcommand{\Rand}{\mathcal{R}}
+\newcommand{\Ind}{\mathcal{I}}
+\newcommand{\Dom}{D}
+\newcommand{\Rng}{R}
+\newcommand{\DLog}{\mathrm{DLog}}
+\newcommand{\QR}{\mathrm{QR}}
+\newcommand{\QNR}{\mathrm{QNR}}
+\newcommand{\half}{\mathrm{half}}
+\newcommand{\lsb}{\mathrm{lsb}}
+\newcommand{\IV}{\mathrm{IV}}
+\newcommand{\Field}{\mathbb{F}}
+\newcommand{\PK}{\mathit{PK}}
+\newcommand{\SK}{\mathit{SK}}
+\newcommand{\pk}{\mathit{pk}}
+\newcommand{\sk}{\mathit{sk}}
+% \newcommand{\key}{\mathsf{key}}
+
+\newcommand{\accept}{\mathtt{accept}}
+\newcommand{\reject}{\mathtt{reject}}
+\newcommand{\fail}{\mathtt{fail}}
+\newcommand{\MD}[1]{\mathrm{MD{#1}}}
+\newcommand{\SHA}{\mbox{SHA-1}}
+
+\newcommand{\pf}{\mathit{proof}}
+\newcommand{\compind}{\mathbin{\stackrel{\rm
+c}{\equiv}}}
+
+\newcommand{\Ideal}{\mathbf{Ideal}}
+\newcommand{\Real}{\mathbf{Real}}
+\newcommand{\mvec}{\overline{m}}
+
+\newcommand{\View}{\mathsf{View}}
+\newcommand{\ThreeCol}{\textprob{Graph 3-Coloring}}
+\newcommand{\TCOL}{\mathprob{3COL}}
+
+\newcommand{\OT}{\mathrm{OT}}
+\newcommand{\msg}{ m_0,m_1{\in}\MsgSp}}
+\newcommand{\n}{\newline}

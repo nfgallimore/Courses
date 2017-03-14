@@ -1,0 +1,111 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsfonts,amssymb,fullpage,enumerate}
+
+\newcommand{\psnum}{3}
+\newcommand{\assdate}{Sep. 20, 2013 \hspace{-5em}}
+\newcommand{\duedate}{Sep. 27, 2013}
+\def\inclsolns{0}
+
+\input{macros}
+
+\newcounter{problem}
+\newenvironment{problem}[1]{\stepcounter{problem}
+\paragraph{Problem \theproblem. #1}}{}
+
+\ifnum\inclsolns=1
+\newenvironment{solution}{\paragraph{Solution.}}{}
+\else
+\newenvironment{solution}{\begin{remove}}{\end{remove}}
+\fi
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------$
+\begin{document}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+\hline
+{\large \bfseries CS 127/CSCI E-127: Introduction to Cryptography} \\
+
+{\large \bfseries Problem Set \psnum}\\
+Assigned: \assdate
+\hspace{20em} Due: \duedate\ (5:00 PM)\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+\vspace{1cm}
+
+\noindent Justify all of your answers.  See the syllabus for
+collaboration and lateness policies. Submit solutions by email to {\tt
+mbun@seas} (and please put the string ``CS127PS\psnum'' somewhere in your subject line).
+
+\begin{problem}{(Key Recovery in Secure Encryption)}
+Let $(\Gen,\Enc,\Dec)$ be a computationally secure encryption scheme
+over the message space $\zo^n$.  Show that the probability that a
+PPT adversary can recover the key after seeing the encryption of a
+random message (uniformly distributed in $\zo^n$) is negligible.
+(Hint: use semantic security.)
+\end{problem}
+
+\begin{problem}{(Protecting Message Length)}
+Recall the definition of an encryption scheme $(\Gen, \Enc, \Dec)$ having computational indistinguishable encryptions against an eavesdropper. Suppose we remove the requirement that the adversary $\calA$ chooses messages with the same length; that is, we allow $|m_0| \ne |m_1|$. Prove that \emph{no} encryption scheme satisfies this stronger definition. (Hint: Let $q(n)$ be a polynomial upper bound on the length of the ciphertext when a single bit is encrypted. Consider an adversary that outputs $m_0 \in \{0, 1\}$ and $m_1 \in \{0, 1\}^{q(n) + 2}$.)
+\end{problem}
+
+\begin{problem}{(Breaking Some Stream Ciphers)}
+
+\begin{enumerate}[a)]
+\item Define $G(x)=y_0\dots y_{n}$, where $x=x_0\cdots x_{n-1}$, $y_0=x_0$, $y_i = x_{i-1}\oplus
+x_{i \bmod n}$ for $i=1,\ldots,n$.  Show that $G$ is {\em not} a
+pseudorandom generator. Also show that the encryption scheme based
+on $G$, where $\Enc_k(m)=m\oplus G(k)$, is not computationally secure
+(i.e. does not have computationally indistinguishable encryptions).
+\end{enumerate}
+
+In the remainder of the problem, you will generalize the above to
+{\em any} pseudorandom generator for which each bit of output
+depends on at most two bits of the seed.  That is, for every $n$ and
+every $i\in \{1,\ldots,\ell(n)\}$ (where $\ell$ is the expansion
+function of $G$),  there exist $j,k\in \{1,\ldots,n\}$ and a
+function $f$ such that $G(x)_i=f(x_j,x_k)$ for all $x\in \zo^n$.
+(In contrast, a remarkable result from 2004 shows how to convert
+essentially any pseudorandom generator into one where every output
+bit depends on only {\em four} bits of the seed.)
+
+\begin{enumerate}[a)]
+\stepcounter{enumi}
+\item Show that if $G$ is a pseudorandom generator such that each
+bit of the output depends on at most two bits of the seed, then in
+fact each bit of the output is equal to either some bit of the seed,
+the complement of some bit of the seed, the xor of two bits of the
+seed, or the complement of the xor of two bits of the seed.  That
+is, the functions $f(x_j,x_k)$ must be one of $x_j$, $\neg x_j$,
+$x_k$, $\neg x_k$, $x_j\oplus x_k$, or  $\neg (x_j\oplus x_k)$.
+(Hint: what property do all 2-bit functions other than these have?)
+\label{part:linear}
+
+\item Show that there does not exist a pseudorandom generator such
+that each bit of the output depends on at most two bits of the seed.
+Also show that the encryption scheme based on $G$, where
+$\Enc_k(m)=m\oplus G(k)$, is not computationally secure.  (Hint: After
+using Part~\ref{part:linear}, we can define a set $S=\{j :
+\mbox{$x_j$ or its complement is an output bit of $G$}\}$ and a
+graph $H$ with edge set $\{(j,k) : \mbox{$x_j\oplus x_k$ or its
+complement is an output bit of $G$}\}$.  Use the expansion of $G$ to
+argue that either $H$ contains a cycle or there are two elements of
+$S$ connected by a path in $H$.)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{(Properties of Pseudorandom Sequences)}
+Let $G$ be a pseudorandom generator with expansion function
+$\ell$.  Show that $G(U_n)$ has a sequence of at least $2\log_2
+\ell(n)$ consecutive ones with low probability (i.e. tending to 0
+as $n\to \infty$).  Can this probability be negligible?
+\end{problem}
+
+
+\end{document}

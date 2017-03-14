@@ -1,0 +1,5 @@
+(* OASIS_START *)
+(* DO NOT EDIT (digest: f5bc58626049bb64587e91285c09f298) *)
+Authors of dirvish-stats
+Sylvain Le Gall
+(* OASIS_STOP *)

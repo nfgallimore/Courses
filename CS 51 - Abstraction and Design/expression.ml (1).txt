@@ -1,0 +1,146 @@
+(* CS51 PS2 Spring 2011 *)
+(* SOLUTIONS *)
+open Core.Std ;;
+open Ast ;;
+open ExpressionLibrary ;;
+
+(*>* Problem 2.1 *>*)
+
+(* contains_var : tests whether an expression contains a variable "x"
+ *     Examples : contains_var (parse "x^4") = true
+ *                contains_var (parse "4+3") = false *)
+let rec contains_var (e:expression) : bool =
+  match e with
+    | Var -> true
+    | Unop (_,e1) -> contains_var e1
+    | Binop (_,e1,e2) -> contains_var e1 || contains_var e2
+    | _ -> false
+;;
+
+
+(* --------------------- Evaluate ---------------------- *)
+
+(* The "denotation" of a unary operator.
+   We map object-language unary operators to Caml unary operators
+   (i.e., functions). *)
+let unop_denote (u:unop) =
+  match u with
+    | Sin -> sin
+    | Cos -> cos
+    | Ln -> log
+    | Neg -> (~-.)
+;;
+
+(* The "denotation" of a binary operator.
+   We map object-language binary operators to Caml binary operators
+   (i.e., functions). *)
+let binop_denote (b:binop) =
+  match b with
+    | Add -> ( +. )
+    | Sub -> ( -. )
+    | Mul -> ( *. )
+    | Div -> ( /. )
+    | Pow -> ( ** )
+;;
+
+(* Evaluate expression e at x.
+   0/0 is evaluated rather arbitrarily as 0.
+   So are 0*nan and 0*infinity. *)
+
+(* evaluate : evaluates an expression for a particular value of x.
+ *  example : evaluate (parse "x^4 + 3") 2.0 = 19.0 *)
+let rec evaluate (e:expression) (x:float) : float =
+  match e with
+    | Num n -> n
+    | Var -> x
+    | Unop (u,e1) -> unop_denote u (evaluate e1 x)
+    | Binop (b,e1,e2) -> binop_denote b (evaluate e1 x) (evaluate e2 x)
+;;
+
+(*>* Problem 2.3 *>*)
+
+let rec derivative (e:expression) : expression =
+  match e with
+    | Num _ -> Num 0.
+    | Var -> Num 1.
+    | Unop (u,e1) ->
+        (match u with
+           | Sin -> Binop(Mul,Unop(Cos,e1),derivative e1)
+           | Cos -> Binop(Mul,Unop(Neg,Unop(Sin,e1)),derivative e1)
+           | Ln -> Binop(Div,derivative e1,e1)
+           | Neg -> Unop(Neg,derivative e1)
+	)
+    | Binop (b,e1,e2) ->
+        match b with
+          | Add -> Binop(Add,derivative e1,derivative e2)
+          | Sub -> Binop(Sub,derivative e1,derivative e2)
+          | Mul -> Binop(Add,Binop(Mul,e1,derivative e2),
+                         Binop(Mul,derivative e1,e2))
+          | Div -> Binop(Div,
+			 Binop(Sub,Binop(Mul,derivative e1,e2),
+			       Binop(Mul,e1,derivative e2)),
+			 Binop(Pow,e2,Num(2.)))
+          | Pow ->
+	      if contains_var e2 then
+                Binop(Mul,e,Binop(Add,Binop(Mul,derivative e2,Unop(Ln,e1)),
+                                  Binop(Div,Binop(Mul,derivative e1,e2),e1)))
+              else Binop(Mul,e2,
+			 Binop(Mul,derivative e1,Binop(Pow,e1,
+                                                       Binop(Sub,e2,Num 1.))))
+;;
+
+(*>* Problem 2.4 *>*)
+
+let find_zero (e:expression) (guess:float) (epsilon:float) (lim:int)
+    : float option =
+  let e' = derivative e in
+  let rec find_zero' (guess:float) (count:int) : float option =
+    if count >= lim then None else
+    let e_of_guess = evaluate e guess in
+    if Float.abs e_of_guess >= epsilon then
+      find_zero' (guess -. (e_of_guess /. evaluate e' guess)) (count + 1)
+    else Some guess
+  in find_zero' guess 0
+;;
+
+
+(*>* Problem 2.5 *>*)
+let flatten (e: expression) : (float list * float) option =
+  let rec flatten_int e mult acc =
+    match acc with
+      | Some (lacc, cacc) ->
+          (match e with
+             | Num n -> Some (lacc, n *. mult +. cacc)
+             | Var -> Some (mult::lacc, cacc)
+             | Binop (Add, e1, e2) ->
+                 flatten_int e1 mult (flatten_int e2 mult acc)
+             | Binop (Sub, e1, e2) ->
+                 flatten_int e1 mult (flatten_int e2 (0. -. mult) acc)
+             | Binop (Mul, e1, e2) -> if (not (contains_var e1)) then
+                 flatten_int e2 (mult *. (evaluate e1 0.)) acc
+               else if (not (contains_var e2)) then
+                 flatten_int e1 (mult *. (evaluate e2 0.)) acc
+               else None
+             | Binop (Div, e1, e2) -> if (not (contains_var e2)) then
+                 flatten_int e1 (mult /. (evaluate e2 0.)) acc
+               else None
+             | Binop _ -> None
+             | Unop (Neg, e) -> flatten_int e (0. -. mult) acc
+             | Unop _ -> None)
+      | None -> None
+  in
+    flatten_int e 1. (Some ([], 0.))
+;;
+
+let find_zero_exact e =
+  match flatten e with
+    | Some (lst, const) ->
+        let coeff = List.fold_left ~f:(+.) ~init:0. lst in
+          if coeff = 0. then None else
+          Some (Unop(Neg, (Binop (Div, Num const, Num coeff))))
+    | None -> None
+;;
+
+(*>* Problem 2.6 *>*)
+
+let minutes_spent_on_part_2 : int = 42 ;;

@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsfonts,amssymb,fullpage,enumerate}
+
+\newcommand{\psnum}{2}
+\newcommand{\assdate}{Sep. 13, 2013 \hspace{-5em}}
+\newcommand{\duedate}{Sep. 20, 2013}
+\def\inclsolns{0}
+
+\input{macros}
+
+\newcounter{problem}
+\newenvironment{problem}[1]{\stepcounter{problem}
+\paragraph{Problem \theproblem. #1}}{}
+
+\ifnum\inclsolns=1
+\newenvironment{solution}{\paragraph{Solution.}}{}
+\else
+\newenvironment{solution}{\begin{remove}}{\end{remove}}
+\fi
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------$
+\begin{document}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+\hline
+{\large \bfseries CS 127/CSCI E-127: Introduction to Cryptography} \\
+
+{\large \bfseries Problem Set \psnum}\\
+Assigned: \assdate
+\hspace{20em} Due: \duedate\ (5:00 PM)\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+\vspace{1cm}
+
+\noindent Justify all of your answers.  See the syllabus for
+collaboration and lateness policies. Submit solutions by email to {\tt
+mbun@seas} (and please put the string ``CS127PS2'' somewhere in your subject line).
+
+\begin{problem}{(More examples of perfect secrecy)}
+In this question, suppose we wish to encrypt messages over the English alphabet $\Sigma = \{a, \dots, z\}$, which we can view as $\{0, 1, \dots, 25\}$.
+\begin{enumerate}[a.]
+\item Prove that the shift cipher for messages of length 1 over $\Sigma$
+satisfies the definition of perfect secrecy.
+\item What is the largest message space $\MsgSp \subseteq \Sigma^*$ for which the mono-alphabetic substitution cipher provides perfect secrecy? Justify your answer (proving both perfect secrecy and that no larger message space is possible).
+\item Prove that the Vigen\`{e}re cipher using fixed period $t$ is perfectly secret when used to encrypt messages of length $t$.
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}{(Statistical security)}
+Recall that  $(\Gen,\Enc,\Dec)$ has {\em statistically
+$\eps$-indistinguishable encryptions} if for every two
+$m_0,m_1\in\MsgSp$ and every $T\subseteq \CiphSp$,
+$$\left|\pr{\Enc_K(m_0)\in T} - \pr{\Enc_K(m_1)\in T}\right| \leq
+\eps,$$ where the probabilities are taken over $K\getsr \Gen$ and
+the coin tosses of $\Enc$.
+
+\begin{enumerate}[a.]
+\item Show that statistical $0$-indistinguishability is equivalent
+to perfect indistinguishability.
+
+\item In analogy with adversarial indistinguishability, we say that an encryption scheme $(\Gen, \Enc, \Dec)$ satisfies \emph{$\eps$-adversarial indistinguishability} if every adversary $\calA$ succeeds at the eavesdropping indistinguishability game defined in class with probability at most $\frac{1 + \eps}{2}$:
+\begin{enumerate}[1.]
+\item $\calA$ outputs a pair of messages $m_0, m_1 \in \MsgSp$.
+\item A random key $K \getsr \Gen$ and a bit $b \getsr \{0, 1\}$ are sampled. The ciphertext $c \getsr \Enc_K(m_b)$ is computed and given to $\calA$.
+\item $\cal A$ outputs a bit $b'$ and succeeds iff $b = b'$.
+\end{enumerate}
+Show that if the encryption scheme $(\Gen, \Enc, \Dec)$ has statistically $\eps$-indistinguishable encryptions, then it also satisfies $\eps$-adversarial indistinguishability. (The converse is also true, as we will discuss in section.)
+\end{enumerate}
+For the next three parts, suppose $(\Gen,\Enc,\Dec)$  has
+statistically $\eps$-indistinguishable encryptions for message space
+$\MsgSp$. Below you will prove that the number of keys must be at
+least $(1-\eps)\cdot |\MsgSp|$, so statistical security doesn't help
+much to overcome the limitations of perfect secrecy.
+
+\begin{enumerate}[a.]
+\stepcounter{enumi}
+\item Call a ciphertext $c$ {\em decryptable} to $m\in \MsgSp$ if
+there is a key $K$ such that $\Dec_K(c)=m$.  Prove that for every
+two messages $m,m'\in\MsgSp$,
+$$\pr{\mbox{$\Enc_K(m)$ is decryptable to $m'$}}\geq 1-\eps,$$
+where the probability is taken over $K\getsr \Gen$ and the coin
+tosses of $\Enc$.
+
+ \item Show that for every message $m\in \MsgSp$,
+$$\E\left[\#\{ m' : \mbox{$\Enc_K(m)$ is decryptable to
+$m'$}\right] \geq (1-\eps)\cdot |\MsgSp|,$$ where again the
+probability is taken over $K$ and the coin tosses of $\Enc$. (Hint:
+for each $m'$, define a random variable $X_{m'}$ that equals $1$ if
+$\Enc_K(m)$ is decryptable to $m'$, and equals $0$ otherwise.)
+
+\item Conclude that the number of keys must be at least
+$(1-\eps)\cdot |\MsgSp|$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{(Factorization is ``$\NP$-easy'')}
+\begin{enumerate}[a.]
+\item Let $L= \{ (x,y) \in \N \times \N:  \textrm{$x$ has a factor between
+$2$ and $y$}\}$. Show that the language $L$ is in $\NP$.
+\item Show that if $L$ is in $\P$, then
+there is a polynomial-time algorithm for the integer factorization problem: given a composite number $x$, find a nontrivial factor of $x$.
+Thus, if $\P=\NP$, then factorization is easy.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{(Reducing the error of randomized algorithms)}
+Suppose we have randomized algorithm for computing a function $f$
+which gives an incorrect answer with probability $\leq 1/3$, and we want
+to reduce its error by repeating it several times and taking a majority vote.
+Use the Chernoff Bound to estimate how many repetitions suffice to reduce the error probability to $1/1000$.  And to $2^{-k}$?
+\end{problem}
+
+\end{document}

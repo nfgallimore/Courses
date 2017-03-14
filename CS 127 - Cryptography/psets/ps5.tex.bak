@@ -1,0 +1,109 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsfonts,amssymb,fullpage,enumerate,verbatim}
+
+\newcommand{\psnum}{5}
+\newcommand{\assdate}{Oct. 11, 2013 \hspace{-5em}}
+\newcommand{\duedate}{Oct. 18, 2013}
+\def\inclsolns{0}
+
+\input{macros}
+
+\newcounter{problem}
+\newenvironment{problem}[1]{\stepcounter{problem}
+\paragraph{Problem \theproblem. #1}}{}
+
+\ifnum\inclsolns=1
+\newenvironment{solution}{\paragraph{Solution.}}{}
+\else
+\newenvironment{solution}{\begin{remove}}{\end{remove}}
+\fi
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------$
+\begin{document}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+\hline
+{\large \bfseries CS 127/CSCI E-127: Introduction to Cryptography} \\
+
+{\large \bfseries Problem Set \psnum}\\
+Assigned: \assdate
+\hspace{20em} Due: \duedate\ (5:00 PM)\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+\vspace{1cm}
+
+\noindent Justify all of your answers.  See the syllabus for
+collaboration and lateness policies. Submit solutions by email to {\tt
+mbun@seas} (and please put the string ``CS127PS\psnum'' somewhere in your subject line).
+
+
+
+\begin{problem}{(More candidate one-way function families)}
+Which of the following are likely to be one-way functions families?
+Justify your
+answers by either giving a polynomial-time adversary that inverts
+the function with nonnegligible probability or by showing that the
+function's one-wayness follows from the one-wayness of one of the
+candidates given in class.
+
+\begin{enumerate}[a)]
+\item $f_N: \Z_N\to \Z_N$ defined by $f_N(x)=[x^2+2x \bmod N]$,
+where $N=pq$ for random $n$-bit primes $p,q$. \label{part:squaring}
+
+\item $f_{p,x}: \Z_p^* \to \Z_p^*$ defined by $f_{p,x}(y)=y^x
+\bmod p$, where $p$ is a random $n$-bit prime and $x\getsr
+\{0,\ldots,p-2\}$. \label{part:primeRSA}
+\end{enumerate}
+
+\end{problem}
+
+
+\begin{problem} {(Modular exponentiation and hardcore bits)}
+The fact that the least significant bit is not a hardcore bit for the modular exponentiation family ($f_{p,g}(x)=[g^x \bmod
+p]$) follows from the fact that $x$ is even iff $f_{p,g}(x)^{(p-1)/2} \equiv 1 \bmod{p}$ (as discussed in section and \S11.1.1 of KL 1st ed.). 
+Show that the \emph{second} least significant bit is also not a hardcore bit. You may use the fact that a
+random $n$-bit prime will be of the form $4k+1$ for integer $k$ with
+probability $\approx 1/2$. % (Hint: characterize the numbers $[g^x \bmod p]$ where the exponent $x$ has $00$ as its two least significant bits.)
+\end{problem}
+
+
+\begin{problem}{(Bit-commitment schemes)}
+A {\em bit-commitment scheme} is a cryptographic primitive that
+involves two parties, a {\em sender} and a {\em receiver}. The
+sender {\em commits} to a value $b\in \zo$ by sending the receiver a
+string (called the {\em commitment}).  Later, the sender can
+``reveal'' the value $b$ by sending the receiver another string
+(called the {\em opening}), which the receiver checks against the
+commitment. The commitment should be (perfectly) {\em binding}, meaning that it
+should be impossible for the sender to open it as both a 0 and 1. On
+the other hand, the commitment should be (computationally) {\em hiding} in that the
+committed value should be completely hidden to a polynomial-time
+receiver prior to revelation.
+\begin{enumerate}[a)]
+\item Formally define the properties we want from a
+commitment scheme.  (If you have trouble, then it may help to try
+part~\ref{part:construct} first and then formalize the properties of
+the scheme you construct.)
+
+\item Construct a commitment scheme from any one-way permutation
+(and hardcore bit). \label{part:construct}
+
+\item Extra Credit: Construct a (statistically binding) commitment scheme from any
+pseudorandom generator with expansion $\ell(n) \ge 3n$. Your scheme will probably
+require an extra step, where the receiver selects a random
+initialization string $s$ which it sends to the sender, and the
+binding property will only hold with high probability over the
+receiver's choice of $s$.  (Hint: Make use of $G_s(x)=G(x)\oplus s$
+in addition to $G$ itself.)
+\end{enumerate}
+\end{problem}
+
+
+\end{document}

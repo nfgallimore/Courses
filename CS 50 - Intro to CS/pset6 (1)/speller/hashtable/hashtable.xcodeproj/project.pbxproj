@@ -1,0 +1,142 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		82592BF618211D75005E51A2 /* dictionary.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dictionary.c; sourceTree = "<group>"; };
+		82592BF718211D75005E51A2 /* dictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dictionary.h; sourceTree = "<group>"; };
+		82592BF818211D75005E51A2 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		82592BF918211D75005E51A2 /* speller.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = speller.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		82592BF018211D75005E51A2 = {
+			isa = PBXGroup;
+			children = (
+				82592BF618211D75005E51A2 /* dictionary.c */,
+				82592BF718211D75005E51A2 /* dictionary.h */,
+				82592BF818211D75005E51A2 /* Makefile */,
+				82592BF918211D75005E51A2 /* speller.c */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		82592BF518211D75005E51A2 /* hashtable */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 82592BFA18211D75005E51A2 /* Build configuration list for PBXLegacyTarget "hashtable" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/nickgallimore/Downloads/pset6-confidential/speller/hashtable";
+			dependencies = (
+			);
+			name = hashtable;
+			passBuildSettingsInEnvironment = 1;
+			productName = hashtable;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		82592BF118211D75005E51A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 82592BF418211D75005E51A2 /* Build configuration list for PBXProject "hashtable" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 82592BF018211D75005E51A2;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				82592BF518211D75005E51A2 /* hashtable */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		82592BF218211D75005E51A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		82592BF318211D75005E51A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		82592BFB18211D75005E51A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = hashtable;
+			};
+			name = Debug;
+		};
+		82592BFC18211D75005E51A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = hashtable;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		82592BF418211D75005E51A2 /* Build configuration list for PBXProject "hashtable" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82592BF218211D75005E51A2 /* Debug */,
+				82592BF318211D75005E51A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82592BFA18211D75005E51A2 /* Build configuration list for PBXLegacyTarget "hashtable" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82592BFB18211D75005E51A2 /* Debug */,
+				82592BFC18211D75005E51A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 82592BF118211D75005E51A2 /* Project object */;
+}

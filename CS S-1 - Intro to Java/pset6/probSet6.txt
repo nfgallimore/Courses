@@ -1,0 +1,40 @@
+1.
+	8
+	53
+	-801
+	90305
+2.
+
+Creates a method named processFile that takes a single Scanner parameter named input and doesn't return anything. 
+If the file has a new line, a new string called first is created and set to the new line.
+If the file has another line, a second string is created and set to the second line and then it is printed.
+The method then prints the first string. 
+
+	Example:
+
+		Robin
+		Hood
+
+	Would be printed as:
+
+		Hood
+		Robin
+
+The while loop is then repeated until it no longer has a new line.
+
+3.
+
+static String repeat (String s, int n) 
+{
+	if (n < 0) 
+	{ 
+		System.out.println("Error, invalid argument"); 
+		System.exit(0); 
+	}
+    	else if (n == 1) return s;
+    	return s + repeat(s, n - 1);
+}
+
+4. If the users input is greater than 0 the output is 1, else the output is 0.
+
+

@@ -1,0 +1,23 @@
+\documentclass[]{article}
+
+\begin{document}
+
+\title{Definitions}
+\author{Nick Gallimore}
+\date{November 19, 2013}
+\maketitle
+\input{macros}
+\noindent
+
+\newcommand{\PerfSec}{
+\bf \noindent Perfect Secrecy\newline
+\it An encryption scheme (Gen, Enc, Dec) with message space $\MsgSp$ is perfectly secret if for every probability distribution over $\MsgSp$, every message $m$:
+$$\pr{M=m|C=c]=Pr[M=m}$$
+\newline}\PerfSec
+
+\newcommand{\PerfIndist}{
+\bf \noindent Perfect Indistinguishability\newline
+\it \Scheme with message space M is perfectly secret if and only if for every $\msg$:
+\newline}\PerfIndist
+
+\end{document}
